@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <router-view></router-view>
+  <div class="my-container">
+    <h1>my</h1>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'my'
+}
 </script>
 
 <style lang="less" scoped>
