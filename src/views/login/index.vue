@@ -88,7 +88,9 @@ export default {
   },
   methods: {
     onClickLeft () {
-      this.$toast('取消')
+      this.$router.push({
+        name: 'my'
+      })
     },
     async onSubmit () {
       // 验证手机号的正则表达式
@@ -100,6 +102,11 @@ export default {
       if (this.code.length <= 0) return this.$toast('验证码不能为空')
       if (!codeReg.test(this.code)) return this.$toast('验证码必须为6位')
       // 发送请求,拿到token
+      this.$toast.loading({
+        message: '登录中...',
+        forbidClick: true,
+        duration: 0
+      })
       try {
         const { data } = await login({
           mobile: this.mobile,
@@ -125,11 +132,9 @@ export default {
         this.$toast('发送成功')
         this.countDown = true
       } catch (err) {
-        let msg = ''
-        const status = err.response.status
-        if (status === 404) msg = '手机号不正确'
-        if (status === 429) msg = '发送频繁，请稍后重试'
-        this.$toast(msg)
+        if (!err.response || err.response.status === 429) {
+          this.$toast('发送频繁，请稍后重试')
+        }
       }
     }
   }
