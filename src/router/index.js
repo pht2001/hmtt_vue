@@ -30,6 +30,10 @@ const routes = [
         component: () => import('@/views/my')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login')
   }
 ]
 
