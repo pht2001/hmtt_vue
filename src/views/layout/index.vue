@@ -17,7 +17,7 @@
             <i class="iconfont icon-shipin"></i>
           </template>
         </van-tabbar-item>
-        <van-tabbar-item replace to="/my">我的
+        <van-tabbar-item replace to="/my">{{$store.state.user ? '我的' : '未登录'}}
           <template #icon>
             <i class="iconfont icon-wode"></i>
           </template>
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'layout',
+  name: 'layoutIndex',
   data () {
     return {
       active: 0

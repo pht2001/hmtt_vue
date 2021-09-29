@@ -55,7 +55,7 @@
 <script>
 import { sendCode, login } from '@/api/user'
 export default {
-  name: 'login',
+  name: 'loginIndex',
   data () {
     return {
       mobile: '18569017217', // 手机号

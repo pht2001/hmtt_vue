@@ -68,7 +68,7 @@
 import { mapState } from 'vuex'
 import { getUserInfo } from '@/api/user'
 export default {
-  name: 'my',
+  name: 'myIndex',
   computed: {
     ...mapState(['user'])
   },

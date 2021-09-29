@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'qa'
+  name: 'qaIndex'
 }
 </script>
 
