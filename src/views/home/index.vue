@@ -23,9 +23,12 @@
               swipe-threshold="3">
       <van-tab v-for="channel in channelsList"
                :key="channel.id"
-               :title="channel.name">
+               :title="channel.name"
+      >
         <div class="scroll">
-          内容 {{ channel.id }}
+          <!-- 文章列表 -->
+          <ActicleList :channelId="channel.id" />
+          <!-- /文章列表 -->
         </div>
       </van-tab>
 
@@ -58,6 +61,7 @@ import { getUserChannels } from '@/api/user'
 import Channels from './components/Channels'
 import { mapState } from 'vuex'
 import { getItem } from '@/utils/storage'
+import ActicleList from './components/ActicleList'
 export default {
   name: 'homeIndex',
   data () {
@@ -68,7 +72,8 @@ export default {
     }
   },
   components: {
-    Channels
+    Channels,
+    ActicleList
   },
   computed: {
     ...mapState(['user'])
