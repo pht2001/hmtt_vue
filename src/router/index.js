@@ -37,6 +37,11 @@ const routes = [
     component: () => import('@/views/login')
   },
   {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search')
+  },
+  {
     path: '*',
     redirect: '/404'
   },

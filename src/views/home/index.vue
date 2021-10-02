@@ -1,15 +1,22 @@
 <template>
   <div class="home-container">
     <!-- 搜索 -->
-    <van-nav-bar class="page-nav-bar"
-                 fixed>
+    <van-nav-bar
+      class="page-nav-bar"
+      fixed
+    >
       <template #title>
-        <van-button class="search"
-                    round
-                    size="small">
-          <van-icon slot="icon"
-                    class="search-o"
-                    name="search"></van-icon>
+        <van-button
+          class="search"
+          round
+          size="small"
+          @click="$router.push('/search')"
+        >
+          <van-icon
+            slot="icon"
+            class="search-o"
+            name="search"
+          ></van-icon>
           <span slot="default">搜索</span>
         </van-button>
       </template>
