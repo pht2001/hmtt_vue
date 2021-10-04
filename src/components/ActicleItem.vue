@@ -1,5 +1,5 @@
 <template>
-    <van-cell class="acticle-item">
+    <van-cell class="acticle-item" @click="onActicle">
         <div class="title" slot="title">{{ acticleObj.title }}</div>
         <template #label>
             <div class="photo" v-if="acticleObj.cover.type === 3">
@@ -34,6 +34,16 @@ export default {
     acticleObj: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    onActicle () {
+      this.$router.push({
+        name: 'acticle',
+        params: {
+          acticleId: this.acticleObj.art_id.toString()
+        }
+      })
     }
   }
 }

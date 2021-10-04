@@ -42,6 +42,12 @@ const routes = [
     component: () => import('@/views/search')
   },
   {
+    path: '/acticle/:acticleId',
+    name: 'acticle',
+    props: true,
+    component: () => import('@/views/acticle')
+  },
+  {
     path: '*',
     redirect: '/404'
   },

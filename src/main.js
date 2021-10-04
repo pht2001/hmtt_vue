@@ -4,6 +4,7 @@ import router from './router'
 import '@/permisstion'
 import store from './store'
 import '@/utils/dayjs'
+import './styles/github-markdown.css'
 
 // 导入全局样式
 import './styles/index.less'

@@ -7,3 +7,9 @@ export const getActicles = params => request({
   method: 'GET',
   params
 })
+
+// 获取新闻文章详情
+export const getActiclesDetails = id => request({
+  url: `/v1_0/articles/${id}`,
+  method: 'GET'
+})

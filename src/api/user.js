@@ -46,3 +46,48 @@ export const deleteUserChannel = target => request({
   url: `/v1_0/user/channels/${target}`,
   method: 'DELETE'
 })
+
+// 关注用户
+export const addFollow = target => request({
+  url: '/v1_0/user/followings',
+  method: 'POST',
+  data: {
+    target
+  }
+})
+
+// 取消关注用户
+export const deleteFollow = target => request({
+  url: `/v1_0/user/followings/${target}`,
+  method: 'DELETE'
+})
+
+// 收藏文章
+export const addCollected = target => request({
+  url: '/v1_0/article/collections',
+  method: 'POST',
+  data: {
+    target
+  }
+})
+
+// 取消收藏文章
+export const deleteCollected = target => request({
+  url: `/v1_0/article/collections/${target}`,
+  method: 'DELETE'
+})
+
+// 点赞文章
+export const addLike = target => request({
+  url: '/v1_0/article/likings',
+  method: 'POST',
+  data: {
+    target
+  }
+})
+
+// 取消点赞文章
+export const deleteLike = target => request({
+  url: `/v1_0/article/likings/${target}`,
+  method: 'DELETE'
+})
