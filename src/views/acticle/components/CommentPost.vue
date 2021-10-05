@@ -28,6 +28,10 @@ export default {
     target: {
       type: [Number, String, Object],
       required: true
+    },
+    acticleId: {
+      type: [Number, String],
+      default: null
     }
   },
   data () {
@@ -35,12 +39,6 @@ export default {
       message: ''
     }
   },
-  // inject: {
-  //   acticleId: {
-  //     type: [Number, String, Object],
-  //     default: null
-  //   }
-  // },
   computed: {},
   watch: {},
   created () {},
@@ -58,7 +56,7 @@ export default {
         const { data: { data } } = await addCommentPost({
           target: this.target.toString(), // 评论的目标id（评论文章即为文章id，对评论进行回复则为评论id）
           content: this.message, // 评论内容
-          art_id: null // 文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
+          art_id: this.acticleId // 文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
         })
         this.$toast.success('发布成功')
         this.$emit('postSuccess', data.new_obj)

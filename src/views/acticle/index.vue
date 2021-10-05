@@ -36,41 +36,69 @@
           <div slot="label" class="publish-date">
             {{ acticleObj.pubdate | relativeTime }}
           </div>
-          <UserFollow v-model="acticleObj.is_followed" :autId="acticleObj.aut_id" />
+          <UserFollow
+            v-model="acticleObj.is_followed"
+            :autId="acticleObj.aut_id"
+          />
         </van-cell>
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div ref="acticle-content" class="article-content markdown-body" v-html="acticleObj.content"></div>
+        <div
+          ref="acticle-content"
+          class="article-content markdown-body"
+          v-html="acticleObj.content"
+        ></div>
         <van-divider>正文结束</van-divider>
 
         <!-- 评论列表 -->
         <div class="comment-list">
-          <CommentList :list="commentArr" @count="commentCount = $event" :source="acticleId.toString()" />
+          <CommentList
+            :list="commentArr"
+            @count="commentCount = $event"
+            :source="acticleId.toString()"
+            @reply="replyComment"
+          />
         </div>
         <!-- /评论列表 -->
 
         <!-- 底部区域 -->
         <div class="article-bottom">
-          <van-button @click="isCommentShow = true" class="comment-btn" type="default" round size="small"
+          <van-button
+            @click="isCommentShow = true"
+            class="comment-btn"
+            type="default"
+            round
+            size="small"
             >写评论</van-button
           >
-          <van-icon name="comment-o" :badge="commentCount" color="#777" @click="commentFn" />
-          <ActicleCollection :acticleId="acticleId.toString()" v-model="acticleObj.is_collected" />
-          <ActicleLike :acticleId="acticleId.toString()" v-model="acticleObj.attitude" />
+          <van-icon
+            name="comment-o"
+            :badge="commentCount"
+            color="#777"
+            @click="commentFn"
+          />
+          <ActicleCollection
+            :acticleId="acticleId.toString()"
+            v-model="acticleObj.is_collected"
+          />
+          <ActicleLike
+            :acticleId="acticleId.toString()"
+            v-model="acticleObj.attitude"
+          />
           <van-icon name="share" color="#777777"></van-icon>
         </div>
         <!-- /底部区域 -->
 
         <!-- 发表评论模块 -->
-        <van-popup
-          v-model="isCommentShow"
-          position="bottom"
-        >
-          <CommentPost @postSuccess="onPostSuccessFn" :target="acticleId" v-if="isCommentShow" />
+        <van-popup v-model="isCommentShow" position="bottom">
+          <CommentPost
+            @postSuccess="onPostSuccessFn"
+            :target="acticleId"
+            v-if="isCommentShow"
+          />
         </van-popup>
         <!-- /发表评论模块 -->
-
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -86,13 +114,16 @@
       <div class="error-wrap" v-else>
         <van-icon name="failure" />
         <p class="text">内容加载失败！</p>
-        <van-button class="retry-btn" @click="retry"
-          >点击重试</van-button
-        >
+        <van-button class="retry-btn" @click="retry">点击重试</van-button>
         <div class="all-bottom"></div>
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
     </div>
+    <!-- 发表评论模块 -->
+    <van-popup style="overflow-y: hidden;" v-model="isReplyShow" position="bottom" :style="{height: '90%'}">
+      <CommentReply @close="isReplyShow = false" v-if="isReplyShow" :replyObj="replyObj" />
+    </van-popup>
+    <!-- /发表评论模块 -->
   </div>
 </template>
 
@@ -104,6 +135,7 @@ import ActicleCollection from '@/components/ActicleCollection'
 import ActicleLike from '@/components/ActicleLike'
 import CommentList from './components/CommentList'
 import CommentPost from './components/CommentPost'
+import CommentReply from './components/CommentReply'
 export default {
   name: 'ActicleIndex',
   data () {
@@ -113,7 +145,9 @@ export default {
       status: 400,
       commentCount: 0,
       isCommentShow: false,
-      commentArr: []
+      commentArr: [],
+      isReplyShow: false,
+      replyObj: {}
     }
   },
   props: {
@@ -125,8 +159,7 @@ export default {
   async created () {
     this.loadingFn()
   },
-  mounted () {
-  },
+  mounted () {},
   updated () {
     const imgs = this.$refs['acticle-content'].querySelectorAll('img')
     const images = []
@@ -145,7 +178,8 @@ export default {
     ActicleCollection,
     ActicleLike,
     CommentList,
-    CommentPost
+    CommentPost,
+    CommentReply
   },
   computed: {},
   watch: {},
@@ -176,11 +210,15 @@ export default {
     onPostSuccessFn (newObj) {
       this.commentArr.unshift(newObj)
       this.isCommentShow = false
+    },
+    replyComment (commentObj) {
+      this.isReplyShow = true
+      this.replyObj = commentObj
     }
   },
   provide: function () {
     return {
-      acticleId: this.acticleId
+      acticleId: this.acticleId.toString()
     }
   }
 }

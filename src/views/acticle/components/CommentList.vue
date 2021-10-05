@@ -2,12 +2,12 @@
   <van-list
     v-model="loading"
     :finished="finished"
-    finished-text="没有更多了"
+    finished-text="我也是有底线的"
     :error.sync="error"
     error-text="请求失败，点击重新加载"
     @load="onLoad"
   >
-    <CommentItem v-for="(obj, index) in list" :key="index" :commentObj="obj" />
+    <CommentItem @reply="$emit('reply', $event)" v-for="(obj, index) in list" :key="index" :commentObj="obj" />
   </van-list>
 </template>
 
@@ -34,7 +34,7 @@ export default {
       }
     },
     source: {
-      type: [Number, String],
+      type: [Number, String, Object],
       required: true
     },
     list: {

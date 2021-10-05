@@ -23,8 +23,10 @@
       <div class="bottom-info">
         <span class="comment-pubdate">{{ commentObj.pubdate | relativeTime }}</span>
         <van-button
+          v-if="replyFlag"
           class="reply-btn"
           round
+          @click="$emit('reply', commentObj)"
         >回复 {{ commentObj.reply_count }}</van-button>
       </div>
     </div>
@@ -40,6 +42,10 @@ export default {
     commentObj: {
       type: Object,
       required: true
+    },
+    replyFlag: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
